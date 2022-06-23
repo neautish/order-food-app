@@ -50,13 +50,15 @@ function Cart(props) {
 
 			{cartItems}
 
-			<div className={classes.actions}>
-				<div className={classes.total}>
-					<span className={classes["total__title"]}>Total Amount</span>
-					<span>{totalAmount}</span>
+			{cartCtx.items.length > 0 && (
+				<div className={classes.actions}>
+					<div className={classes.total}>
+						<span className={classes["total__title"]}>Total Amount</span>
+						<span>{totalAmount}</span>
+					</div>
+					<button className={classes.button}>Order</button>
 				</div>
-				{cartCtx.items.length > 0 && <button className={classes.button}>Order</button>}
-			</div>
+			)}
 		</Modal>
 	);
 }
