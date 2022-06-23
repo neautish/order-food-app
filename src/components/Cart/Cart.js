@@ -34,10 +34,6 @@ function Cart(props) {
 						/>
 					))}
 				</ul>
-				<div className={classes.total}>
-					<span>Total Amount</span>
-					<span>{totalAmount}</span>
-				</div>
 			</Fragment>
 		);
 	} else {
@@ -46,12 +42,19 @@ function Cart(props) {
 
 	return (
 		<Modal onClose={props.onClose}>
+			<div className={classes["close-btn-container"]}>
+				<button className={classes["button--alt"]} onClick={props.onClose}>
+					&times;
+				</button>
+			</div>
+
 			{cartItems}
 
 			<div className={classes.actions}>
-				<button className={classes["button--alt"]} onClick={props.onClose}>
-					Close
-				</button>
+				<div className={classes.total}>
+					<span className={classes["total__title"]}>Total Amount</span>
+					<span>{totalAmount}</span>
+				</div>
 				{cartCtx.items.length > 0 && <button className={classes.button}>Order</button>}
 			</div>
 		</Modal>
