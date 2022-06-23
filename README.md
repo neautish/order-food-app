@@ -1,5 +1,5 @@
--A simple ReactJS food order app (useContext, useReducer)
--URL: 
+- A simple ReactJS food order app (useContext, useReducer)
+- URL: https://reactjs-food-order-app.netlify.app/
 
 # Getting Started with Create React App
 
