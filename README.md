@@ -1,3 +1,6 @@
+-A simple ReactJS food order app (useContext, useReducer)
+-URL: 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
