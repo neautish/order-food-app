@@ -10,6 +10,27 @@
 	padding: 0;
 }
 
+.meals-loading,
+.meals-error {
+	background-color: #fff;
+	padding: 1rem 2rem;
+	border-radius: 5px;
+	text-align: center;
+	min-width: 400px;
+
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+.meals-loading {
+	color: #333;
+}
+
+.meals-error {
+	color: red;
+}
+
 @keyframes meals-appear {
 	from {
 		opacity: 0;
