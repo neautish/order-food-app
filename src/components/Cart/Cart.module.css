@@ -11,8 +11,11 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-end;
-	border-top: 1px solid #5e5e5e33;
+	box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
 	padding: 1rem;
+	position: sticky;
+	bottom: 0;
+	background-color: #fff;
 }
 
 .total {
@@ -52,7 +55,11 @@
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	margin: 0.5rem 1rem 0 0;
+	padding: 2px 1rem;
+	position: sticky;
+	top: 0;
+	background-color: #fff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .button--alt {
