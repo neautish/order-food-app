@@ -83,3 +83,8 @@
 	text-align: center;
 	margin: 2rem 0;
 }
+
+.submitting-message {
+	text-align: center;
+	margin-top: 2rem;
+}

@@ -8,6 +8,10 @@ import Checkout from "./Checkout";
 
 function Cart(props) {
 	const [isCheckout, setIsCheckout] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [didSubmit, setDidSubmit] = useState(false);
+	const [isError, setIsError] = useState(null);
+
 	const cartCtx = useContext(CartContext);
 
 	const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
@@ -22,6 +26,37 @@ function Cart(props) {
 
 	const orderHandler = () => {
 		setIsCheckout(true);
+	};
+
+	const submitOrderHandler = (userData) => {
+		setIsSubmitting(true);
+
+		fetch("https://send-http-request-react-default-rtdb.firebaseio.com/orders.json", {
+			method: "POST",
+			body: JSON.stringify({
+				user: userData,
+				orderedItems: cartCtx.items,
+			}),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then((response) => {
+				console.log(response);
+				if (!response.ok) {
+					throw new Error("Something went wrong: ", response.statusText);
+				}
+
+				setDidSubmit(true);
+				cartCtx.clearCart();
+			})
+			.catch((error) => {
+				console.log(error.message);
+				setIsError(error.message);
+			})
+			.finally(() => {
+				setIsSubmitting(false);
+			});
 	};
 
 	let cartItems;
@@ -46,17 +81,11 @@ function Cart(props) {
 		cartItems = <p className={classes["empty-cart"]}>Your cart is empty. add a meal for start!</p>;
 	}
 
-	return (
-		<Modal onClose={props.onClose}>
-			<div className={classes["close-btn-container"]}>
-				<button className={classes["button--alt"]} onClick={props.onClose}>
-					&times;
-				</button>
-			</div>
-
+	const cartModalContent = (
+		<Fragment>
 			{cartItems}
 
-			{isCheckout && <Checkout onCancel={props.onClose} />}
+			{isCheckout && <Checkout onConfirm={submitOrderHandler} onCancel={props.onClose} />}
 
 			{cartCtx.items.length > 0 && (
 				<div className={classes.actions}>
@@ -71,6 +100,20 @@ function Cart(props) {
 					)}
 				</div>
 			)}
+		</Fragment>
+	);
+
+	return (
+		<Modal onClose={props.onClose}>
+			<div className={classes["close-btn-container"]}>
+				<button className={classes["button--alt"]} onClick={props.onClose}>
+					&times;
+				</button>
+			</div>
+			{isError && !isSubmitting && !didSubmit && <p className={classes["submitting-message"]}>{isError}</p>}
+			{!isSubmitting && !didSubmit && cartModalContent}
+			{isSubmitting && <p className={classes["submitting-message"]}>Sending orders data...</p>}
+			{!isSubmitting && didSubmit && <p className={classes["submitting-message"]}>Succesfully sent orders!</p>}
 		</Modal>
 	);
 }
